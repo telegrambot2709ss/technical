@@ -3,12 +3,6 @@ from rest_framework import serializers
 from apps.geo.models import Region, District, Village
 
 
-class RegionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Region
-        fields = "__all__"
-
-
 class VillageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Village
