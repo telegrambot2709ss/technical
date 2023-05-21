@@ -3,6 +3,7 @@ from rest_framework.validators import UniqueValidator, ValidationError
 from rest_framework.authentication import authenticate
 from django.utils.translation import gettext_lazy as _
 
+from apps.api.v1.auth.utils import generate_unique_token
 from apps.api.v1.base.validate import validate_email
 from apps.users.models import User
 
@@ -35,6 +36,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         validated_data.pop('password2')
         user = User.objects.create(**validated_data)
         user.set_password(validated_data['password'])
+        user.token = generate_unique_token()
         user.save()
         return user
 

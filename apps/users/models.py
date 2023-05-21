@@ -17,6 +17,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     fullname = models.CharField(
         max_length=100, null=True, blank=True, help_text=_("User Full name")
     )
+    token = models.CharField(max_length=255, blank=True, null=True)
     user_photo = models.ImageField(upload_to="users_photos/", null=True, blank=True)
     date_joined = models.DateTimeField(auto_now_add=True, help_text=_("Date of registration"))
     is_active = models.BooleanField("is_active", default=True)
