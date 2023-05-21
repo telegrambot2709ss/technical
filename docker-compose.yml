@@ -17,22 +17,27 @@ services:
       - DB_PASSWORD=technical_root
       - DB_PORT=5432
       - DB_HOST=127.0.0.1
-      - PER_PAGE=5
+
+      - CACHE=redis
+
     depends_on:
       - postgres_db
-
+      - redis
   postgres_db:
     image: postgres:alpine3.17
     ports:
       - "5432:5432"
     environment:
-      - DB_ENGINE=django.db.backends.postgresql_psycopg2
-      - DB_NAME=technical_db
-      - DB_USER=technical_user
-      - DB_PASSWORD=technical_root
-      - DB_PORT=5432
-      - DB_HOST=127.0.0.1
+      - POSTGRES_USER=technical_user
+      - POSTGRES_DB=technical_db
+      - POSTGRES_PASSWORD=technical_db
     volumes:
       - pgdata:/var/lib/postgresql/data
+  redis:
+    image: "redis:alpine"
+    hostname: redis
+    ports:
+      - "6379:6379"
+
 volumes:
   pgdata:
