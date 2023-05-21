@@ -22,7 +22,7 @@ services:
       - postgres_db
 
   postgres_db:
-    image: juggernout1/postgres:alpine3.17
+    image: postgres:alpine3.17
     ports:
       - "5432:5432"
     environment:

@@ -45,7 +45,7 @@ class StudentUserSerializer(serializers.ModelSerializer):
 
 
 class StudentSerializer(serializers.ModelSerializer):
-    user = StudentUserSerializer(required=True)
+    user = StudentUserSerializer(required=False)
     university = serializers.CharField(max_length=150, required=False)
 
     class Meta:
@@ -55,6 +55,8 @@ class StudentSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         method = self.context['request'].method
         if method == "POST":
+            if not attrs.get('user'):
+                raise ValidationError({"user": [_("user is required")]})
             if not attrs.get('university'):
                 raise ValidationError({"university": [_("university is required")]})
             if not attrs.get('contract'):
