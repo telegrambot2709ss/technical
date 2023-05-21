@@ -4,5 +4,5 @@ from apps.api.v1.geo import views
 
 urlpatterns = [
     path("region/list/", views.RegionListView.as_view(), name="region-list"),
-    path("district/<slug:slug>/", views.DistrictListView.as_view(), name="district-list"),
+    path("region/district/<slug:slug>/", views.RegionDetailView.as_view(), name="region-detail"),
 ]

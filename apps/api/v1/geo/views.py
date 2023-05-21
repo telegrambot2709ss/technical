@@ -7,7 +7,7 @@ from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from django.views.decorators.cache import cache_page
 
 from apps.api.v1.geo import serializers
-from apps.geo.models import Region, District
+from apps.geo.models import Region
 
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
@@ -29,5 +29,12 @@ class RegionListView(generics.ListAPIView):
         return Response({"results": serializer.data}, status=status.HTTP_200_OK)
 
 
-class DistrictListView(generics.RetrieveAPIView):
-    queryset = District.objects.all()
+class RegionDetailView(generics.RetrieveAPIView):
+    queryset = Region.objects.all()
+    serializer_class = serializers.RegionListSerializer
+    lookup_field = "slug"
+
+    @classmethod
+    def as_view(cls, **kwargs):
+        view = super().as_view(**kwargs)
+        return cache_page(CACHE_TTL)(view)

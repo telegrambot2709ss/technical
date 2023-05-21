@@ -20,7 +20,7 @@ class DistrictSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = District
-        fields = ["id", "name", "region", "ordering", "villages"]
+        fields = ["id", "name", "slug", "region", "ordering", "villages"]
 
 
 class RegionListSerializer(serializers.ModelSerializer):
@@ -28,4 +28,4 @@ class RegionListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Region
-        fields = ["id", "name", "ordering", "districts"]
+        fields = ["id", "name", "slug", "ordering", "districts"]

@@ -7,3 +7,4 @@ Pillow==9.5.0
 drf-yasg==1.21.5
 requests==2.30.0
 django-redis==5.2.0
+text-unidecode==1.3
