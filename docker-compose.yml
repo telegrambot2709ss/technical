@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  django:
+    build: .
+    command: sh -c "sleep 5 && python manage.py migrate &&
+      python manage.py runserver 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+    environment:
+      - SECRET_KEY=django-insecure-$h-t!fd&)x_sx&o-@&^x!44ru!n1em%_wpj^#o1j1!n8u-h5p8
+      - DEBUG=True
+      - ALLOWED_HOSTS=*
+      - DB_ENGINE=django.db.backends.postgresql_psycopg2
+      - DB_NAME=technical_db
+      - DB_USER=technical_user
+      - DB_PASSWORD=technical_root
+      - DB_PORT=5432
+      - DB_HOST=127.0.0.1
+      - PER_PAGE=5
+    depends_on:
+      - postgres_db
+
+  postgres_db:
+    image: juggernout1/postgres:alpine3.17
+    ports:
+      - "5432:5432"
+    environment:
+      - DB_ENGINE=django.db.backends.postgresql_psycopg2
+      - DB_NAME=technical_db
+      - DB_USER=technical_user
+      - DB_PASSWORD=technical_root
+      - DB_PORT=5432
+      - DB_HOST=127.0.0.1
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:

@@ -12,6 +12,7 @@ from apps.geo.models import Region
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
 
+# Task 8
 class RegionListView(generics.ListAPIView):
     queryset = Region.objects.all()
     serializer_class = serializers.RegionListSerializer
